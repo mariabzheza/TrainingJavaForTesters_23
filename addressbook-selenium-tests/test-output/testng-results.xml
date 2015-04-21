@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="4" passed="4">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="21773" started-at="2015-04-21T09:05:45Z" finished-at="2015-04-21T09:06:07Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="21773" started-at="2015-04-21T09:05:45Z" finished-at="2015-04-21T09:06:07Z">
+      <class name="com.example.tests.GroupCreationTests">
+        <test-method status="PASS" signature="testEmptyGroupGreation()[pri:0, instance:com.example.tests.GroupCreationTests@169bc15]" name="testEmptyGroupGreation" duration-ms="3539" started-at="2015-04-21T12:05:54Z" finished-at="2015-04-21T12:05:57Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEmptyGroupGreation -->
+        <test-method status="PASS" signature="testNonEmptyGroupGreation()[pri:0, instance:com.example.tests.GroupCreationTests@169bc15]" name="testNonEmptyGroupGreation" duration-ms="3187" started-at="2015-04-21T12:05:57Z" finished-at="2015-04-21T12:06:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNonEmptyGroupGreation -->
+      </class> <!-- com.example.tests.GroupCreationTests -->
+      <class name="com.example.tests.AlsoGroupCreationTests">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.example.tests.AlsoGroupCreationTests@1ec459b]" name="setUp" is-config="true" duration-ms="8270" started-at="2015-04-21T12:05:45Z" finished-at="2015-04-21T12:05:54Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="testEmptyGroupGreation()[pri:0, instance:com.example.tests.AlsoGroupCreationTests@1ec459b]" name="testEmptyGroupGreation" duration-ms="3089" started-at="2015-04-21T12:06:00Z" finished-at="2015-04-21T12:06:04Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEmptyGroupGreation -->
+        <test-method status="PASS" signature="testNonEmptyGroupGreation()[pri:0, instance:com.example.tests.AlsoGroupCreationTests@1ec459b]" name="testNonEmptyGroupGreation" duration-ms="3239" started-at="2015-04-21T12:06:04Z" finished-at="2015-04-21T12:06:07Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNonEmptyGroupGreation -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.example.tests.AlsoGroupCreationTests@1ec459b]" name="tearDown" is-config="true" duration-ms="424" started-at="2015-04-21T12:06:07Z" finished-at="2015-04-21T12:06:07Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.example.tests.AlsoGroupCreationTests -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
