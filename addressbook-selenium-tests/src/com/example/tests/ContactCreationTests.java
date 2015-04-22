@@ -30,22 +30,12 @@ public class ContactCreationTests extends TestBase {
     returnToHomePage();
   }
   
-  /*Это надо переделать: 
-   * dropdown list
- 		<select name="bday">
-		<option selected="selected" value="0">-</option>
-		<option value="1">1</option>
-		<option value="2">2</option>
-   *или добавить метод fillEmptyContact, где делать не selectByVisibleText("text"),
-   *а selectByValue(Value) ещё может быть что-то есть, пока я не придумала, мало знаний :)
-   */
-  
-  /*
   @Test
   public void testEmptyContactCreation() throws Exception {
 	openMainPage();
     goByLinkToInitContactCreationForm();
     ContactData contact = new ContactData();
+    
     contact.first_name = "";
     contact.last_name = "";
     contact.address = "";
@@ -54,16 +44,16 @@ public class ContactCreationTests extends TestBase {
     contact.work_phone = "";
     contact.first_email = "";
     contact.second_email = "";
-    contact.bday = "0";
+    contact.bday = "-";
     contact.bmonth = "-";
     contact.byear = "";
     contact.new_group = "[none]";
     contact.second_address = "";
     contact.second_phone = "";
+    
 	fillContactForm(contact);
     submitGroupAndContactForms();
     returnToHomePage();
   }
-*/
-  
+
 }
