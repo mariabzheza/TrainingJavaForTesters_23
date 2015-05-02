@@ -9,22 +9,11 @@
           <include name="setUp"/>
         </methods>
       </class> <!-- com.example.tests.GroupCreationTests -->
-      <class name="com.example.tests.GroupModificationTests">
-        <methods>
-          <include name="modifySomeGroup"/>
-        </methods>
-      </class> <!-- com.example.tests.GroupModificationTests -->
       <class name="com.example.tests.ContactCreationTests">
         <methods>
           <include name="testEmptyContactCreation"/>
-          <include name="testNonEmptyContactCreation"/>
         </methods>
       </class> <!-- com.example.tests.ContactCreationTests -->
-      <class name="com.example.tests.GroupRemovalTests">
-        <methods>
-          <include name="deleteSomeGroup"/>
-        </methods>
-      </class> <!-- com.example.tests.GroupRemovalTests -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
