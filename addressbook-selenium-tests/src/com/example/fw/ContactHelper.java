@@ -41,4 +41,9 @@ public class ContactHelper extends HelperBase {
 		click(By.linkText("home page"));
 	}
 
+	public void initContactModificationForm(int i) {
+		
+		
+	}
+
 }
