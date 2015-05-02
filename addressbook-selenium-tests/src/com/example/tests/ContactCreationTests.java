@@ -6,8 +6,6 @@ public class ContactCreationTests extends TestBase {
  
   @Test
   public void testNonEmptyContactCreation() throws Exception {
-	openMainPage();
-    goByLinkToInitContactCreationForm();
     
     ContactData contact = new ContactData();
     contact.first_name = "first name 1";
@@ -25,17 +23,17 @@ public class ContactCreationTests extends TestBase {
     contact.second_address = "second address 1";
     contact.second_phone = "second phone 1";
     
-	fillContactForm(contact);
-    submitGroupAndContactForms();
-    returnToHomePage();
+    app.getNavigationHelper().openMainPage();
+    app.getContactHelper().initContactCreationForm();
+	app.getContactHelper().fillContactForm(contact);
+    app.getContactHelper().submitContactCreationForm();
+    app.getContactHelper().returnToHomePage();
   }
   
   @Test
   public void testEmptyContactCreation() throws Exception {
-	openMainPage();
-    goByLinkToInitContactCreationForm();
+	
     ContactData contact = new ContactData();
-    
     contact.first_name = "";
     contact.last_name = "";
     contact.address = "";
@@ -51,9 +49,11 @@ public class ContactCreationTests extends TestBase {
     contact.second_address = "";
     contact.second_phone = "";
     
-	fillContactForm(contact);
-    submitGroupAndContactForms();
-    returnToHomePage();
+    app.getNavigationHelper().openMainPage();
+    app.getContactHelper().initContactCreationForm();
+	app.getContactHelper().fillContactForm(contact);
+    app.getContactHelper().submitContactCreationForm();
+    app.getContactHelper().returnToHomePage();
   }
 
 }
