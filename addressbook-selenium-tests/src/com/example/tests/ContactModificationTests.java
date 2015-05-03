@@ -12,10 +12,9 @@ public class ContactModificationTests extends TestBase{
 	    contact.last_name = "250last name 1";
 	    
 	    app.getNavigationHelper().openMainPage();
-	    app.getContactHelper().initContactModificationForm(1);
+	    app.getContactHelper().initContactEditDelete(1);
 	    app.getContactHelper().fillContactForm(contact);
-	    //
-	    app.getContactHelper().submitContactCreationForm();
+	    app.getContactHelper().submitModifiedContact();
 	    app.getContactHelper().returnToHomePage();
 	    
 	  }
