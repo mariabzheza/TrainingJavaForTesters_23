@@ -8,9 +8,11 @@ public class ContactRemovalTests extends TestBase{
 	  public void removeSomeContact() throws Exception {
 	    
 	    app.getNavigationHelper().openMainPage();
-	    app.getContactHelper().initContactEditDelete(1);
+	    app.getContactHelper().initContactEditDelete(0);
 	    app.getContactHelper().deleteContact();
 	    app.getContactHelper().returnToHomePage();
+	    
+	    
 	    
 	  }
 
