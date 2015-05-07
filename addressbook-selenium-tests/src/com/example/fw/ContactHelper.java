@@ -1,6 +1,10 @@
 package com.example.fw;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import com.example.tests.ContactData;
 
@@ -55,4 +59,32 @@ public class ContactHelper extends HelperBase {
 		//click(By.xpath("//input[@value='Update'AND@name='update']"));
 	}
 
+	public List<ContactData> getContacts() {
+		List<ContactData> contacts = new ArrayList<ContactData>();
+		
+/*
+		List<WebElement> contactElements = driver.findElements(By.name("selected[]"));
+		for (WebElement contactElement: contactElements){
+			ContactData contact = new ContactData();
+			String title = contactElement.getAttribute("title");
+			contact.firstAndLastName = title.substring("Select (".length(), title.length() - ")".length());
+			contacts.add(contact);
+		}		
+*/	
+		
+/*
+ * 		String path = "//tr[td[text()='" + firstname + "'] and td[text()='250first name 1']]";
+ *      //tr[td[text()='250last name 1'] and td[text()='250first name 1']]
+*/
+		
+		List<WebElement> firstnameLists = driver.findElements(By.xpath("//tr[@name='entry'][*]/td[3]"));
+		for(WebElement firstname: firstnameLists) {
+			ContactData contact = new ContactData();
+			contact.first_name = firstname.getText();
+			contacts.add(contact);
+		}
+				
+		return contacts;
+	}
+	
 }

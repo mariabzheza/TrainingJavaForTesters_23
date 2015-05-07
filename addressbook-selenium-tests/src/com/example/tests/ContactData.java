@@ -1,6 +1,6 @@
 package com.example.tests;
 
-public class ContactData {
+public class ContactData implements Comparable<ContactData>{
 	public String first_name;
 	public String last_name;
 	public String address;
@@ -15,6 +15,7 @@ public class ContactData {
 	public String new_group;
 	public String second_address;
 	public String second_phone;
+//	public String firstAndLastName ="";
 
 	public ContactData() {
 	}
@@ -38,5 +39,41 @@ public class ContactData {
 		this.new_group = new_group;
 		this.second_address = second_address;
 		this.second_phone = second_phone;
+	}
+	
+	@Override
+	public String toString() {
+		return "ContactData [first_name=" + first_name + "]";
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		//пока убираем сравнение по хеш-коду, в данном случае будет выполняться только метод equals 
+		//result = prime * result + ((first_name == null) ? 0 : first_name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ContactData other = (ContactData) obj;
+		if (first_name == null) {
+			if (other.first_name != null)
+				return false;
+		} else if (!first_name.equals(other.first_name))
+			return false;
+		return true;
+	}
+
+	@Override
+	public int compareTo(ContactData other) {
+		return this.first_name.toLowerCase().compareTo(other.first_name.toLowerCase());
 	}
 }
