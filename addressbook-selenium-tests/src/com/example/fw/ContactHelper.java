@@ -31,8 +31,9 @@ public class ContactHelper extends HelperBase {
 	    selectByText(By.name("bday"), contact.bday);
 	    selectByText(By.name("bmonth"), contact.bmonth);
 	    type(By.name("byear"), contact.byear);
+	    // Принадлежность контакта к group есть при операции create, но почему-то нету при edit, по-этому закоментировано.
 	    //new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contact.new_group);
-	    selectByText(By.name("new_group"), contact.new_group);
+	    //selectByText(By.name("new_group"), contact.new_group);
 	    type(By.name("address2"), contact.second_address);
 	    type(By.name("phone2"), contact.second_phone);
 	}

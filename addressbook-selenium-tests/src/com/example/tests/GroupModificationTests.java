@@ -19,6 +19,7 @@ public class GroupModificationTests extends TestBase{
 	    // save old state
 	    List<GroupData> oldList = app.getGroupHelper().getGroups();
 	    
+	    // Предусловие для выполнения теста: сущевствует хотя-бы одна группа!!!
 	    Random rnd = new Random();
 	    int index = rnd.nextInt(oldList.size()-1);
 	    

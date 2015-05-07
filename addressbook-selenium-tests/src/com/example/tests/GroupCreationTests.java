@@ -28,13 +28,7 @@ public class GroupCreationTests extends TestBase {
     // save new state
     List<GroupData> newList = app.getGroupHelper().getGroups();
     
-    // compare old and new states
-    
-    /* эту проверку убираем, так как она частично делает проверку (только по размеру), 
-     * а не полностью как это делает следующий assert 
-     * assertEquals(newList.size(), oldList.size() + 1);
-    */
-    
+    // compare old and new state
     oldList.add(group);
     Collections.sort(oldList);
     assertEquals(newList, oldList);
