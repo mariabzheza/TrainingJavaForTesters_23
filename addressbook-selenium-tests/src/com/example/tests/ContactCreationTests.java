@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
+import static com.example.fw.ContactHelper.CREATION;
+
 import static org.testng.Assert.assertEquals;
 
 public class ContactCreationTests extends TestBase {
@@ -19,7 +21,7 @@ public class ContactCreationTests extends TestBase {
     
     // actions
     app.getContactHelper().initContactCreationForm();
-	app.getContactHelper().fillContactForm(contact);
+	app.getContactHelper().fillContactForm(contact, CREATION );
     app.getContactHelper().submitContactCreationForm();
     app.getContactHelper().returnToHomePage();
     

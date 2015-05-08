@@ -9,6 +9,9 @@ import org.openqa.selenium.WebElement;
 import com.example.tests.ContactData;
 
 public class ContactHelper extends HelperBase {
+	
+	public static boolean CREATION = true;
+	public static boolean MODIFICATION = false;
 
 	public ContactHelper(ApplicationManager manager) {
 		super(manager);
@@ -18,7 +21,7 @@ public class ContactHelper extends HelperBase {
 		click(By.linkText("add new"));
 	}
 
-	public void fillContactForm(ContactData contact) {
+	public void fillContactForm(ContactData contact, boolean formType) {
 		
 		type(By.name("firstname"), contact.first_name);
 		type(By.name("lastname"), contact.last_name);
@@ -31,9 +34,20 @@ public class ContactHelper extends HelperBase {
 	    selectByText(By.name("bday"), contact.bday);
 	    selectByText(By.name("bmonth"), contact.bmonth);
 	    type(By.name("byear"), contact.byear);
-	    // ѕринадлежность контакта к group есть при операции create, но почему-то нету при edit, по-этому закоментировано.
+	    
+	    // ѕринадлежность контакта к group есть при операции create, но почему-то нету при edit, см. коммент "ѕроверка" ниже.
 	    //new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contact.new_group);
+	    
+	    if (formType == CREATION) {
 	    //selectByText(By.name("new_group"), contact.new_group);
+	    } else {
+	    	// ѕроверка: если это не форма дл€ создани€ группы, и если на странице присутствует елемент дл€ выбора форм, то это ошибка!!!
+	    	// Ќо из-за этой проверки тесты тормоз€т сильно!!!
+	    	if (driver.findElements(By.name("new_group")).size() !=0) {
+	    		throw new Error("Group selector exist in contact modification form");
+	    	}
+	    }
+	    
 	    type(By.name("address2"), contact.second_address);
 	    type(By.name("phone2"), contact.second_phone);
 	}

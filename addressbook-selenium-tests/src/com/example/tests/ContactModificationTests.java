@@ -8,6 +8,8 @@ import java.util.Random;
 
 import org.testng.annotations.Test;
 
+import static com.example.fw.ContactHelper.MODIFICATION;
+
 public class ContactModificationTests extends TestBase{
 	
 	 @Test(dataProvider = "randomValidContactGenerator")
@@ -24,7 +26,7 @@ public class ContactModificationTests extends TestBase{
 	    
 	    // actions
 	    app.getContactHelper().initContactEditDelete(index);
-	    app.getContactHelper().fillContactForm(contact);
+	    app.getContactHelper().fillContactForm(contact, MODIFICATION);
 	    app.getContactHelper().submitModifiedContact();
 	    app.getContactHelper().returnToHomePage();
 	    
