@@ -30,10 +30,10 @@ public class TestBase {
 		  
 		  List<Object[]> list = new ArrayList<Object[]>();
 		  for (int i =0; i < 5; i++) {
-			  GroupData group = new GroupData();
-			  group.name = generateRandomString();
-			  group.header = generateRandomString();
-			  group.footer = generateRandomString();
+			  GroupData group = new GroupData()
+			  	.withName(generateRandomString())
+			  	.withHeader(generateRandomString())
+			  	.withFooter(generateRandomString());
 			  list.add(new Object[]{group});
 		  }
 		  return list.iterator();
@@ -42,23 +42,25 @@ public class TestBase {
 	@DataProvider
 	  public Iterator<Object[]> randomValidContactGenerator() {
 		  List<Object[]> list = new ArrayList<Object[]>();
+		  
 		  for (int i =0; i < 5; i++) {
-			  ContactData contact = new ContactData();
-			  contact.first_name = generateRandomString();
-			  contact.last_name = generateRandomString();
-			  contact.address = generateRandomString();
-			  contact.home_phone = generateRandomString();
-			  contact.mobile_phone = generateRandomString();
-			  contact.work_phone = generateRandomString();
-			  contact.first_email = generateRandomString();
-			  contact.second_email = generateRandomString();
-			  contact.bday = "-";
-			  contact.bmonth = "-";
-			  contact.byear = "2004";
-			  // Принадлежность контакта к group есть при операции create, но почему-то нету при edit, по-этому закоментировано.
-			  //contact.new_group = "[none]";
-			  contact.second_address = generateRandomString();
-			  contact.second_phone = generateRandomString();
+			  ContactData contact = new ContactData()
+			  	.withFirstName(generateRandomString())
+			  	.withLastName(generateRandomString())
+			  	.withAddress(generateRandomString())
+			  	.withHomePhone(generateRandomString())
+			  	.withMobilePhone(generateRandomString())
+			  	.withWorkPhone(generateRandomString())
+			  	.withFirstEmail(generateRandomString())
+			  	.withSecondEmail(generateRandomString())
+			  	.withBDay("-")
+			  	.withBMonth("-")
+			  	.withBYear("2004")
+			 // Принадлежность контакта к group есть при операции create, но почему-то нету при edit, возможно, что надо следующую строчку закоментировать.
+			  	.withNewGroup("[none]")
+			  	.withSecondAddress(generateRandomString())
+			  	.withSecondPhone(generateRandomString());
+			  
 			  list.add(new Object[]{contact});  
 		  }
 		  return list.iterator();

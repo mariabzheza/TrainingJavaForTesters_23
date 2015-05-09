@@ -7,59 +7,68 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.example.tests.GroupData;
-
+   
 public class GroupHelper extends HelperBase {
 
 	public GroupHelper(ApplicationManager manager) {
 		super(manager);
 	}
 
-	public void initGroupCreation() {
+	public GroupHelper initGroupCreation() {
 		click(By.name("new"));
+		return this;
 	  }
 
-	public void fillGroupForm(GroupData group) {
-		type(By.name("group_name"), group.name);
-		type(By.name("group_header"), group.header);
-		type(By.name("group_footer"), group.footer);
+	public GroupHelper fillGroupForm(GroupData group) {
+		type(By.name("group_name"), group.getName());
+		type(By.name("group_header"), group.getHeader());
+		type(By.name("group_footer"), group.getFooter());
+		return this;
 	  }
 
-	public void submitGroupCreationForm() {
+	public GroupHelper submitGroupCreationForm() {
 		//driver.findElement(By.name("submit")).click();
 		click(By.name("submit"));
+		return this;
 	  }
 
-	public void returnToGroupsPage() {
+	public GroupHelper returnToGroupsPage() {
 		//driver.findElement(By.linkText("group page")).click();
 		click(By.linkText("group page"));
+		return this;
 	  }
 
-	public void deleteGroup(int index) {
+	public GroupHelper deleteGroup(int index) {
 		selectGroupByIndex(index);
 		click(By.name("delete"));
+		return this;
 	}
 
 	private void selectGroupByIndex(int index) {
 		click(By.xpath("//input[@name='selected[]'][" + (index+1) + "]"));
 	}
 
-	public void initGroupModification(int index) {
+	public GroupHelper initGroupModification(int index) {
 		selectGroupByIndex(index);
 		click(By.name("edit"));
+		return this;
 	}
 
-	public void submitGroupModification() {
+	public GroupHelper submitGroupModification() {
 		click(By.name("update"));
+		return this;
 	}
 
 	public List<GroupData> getGroups() {
 		List<GroupData> groups = new ArrayList<GroupData>();
+		
+		manager.navigateTo().groupsPage();
 		List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
 		for (WebElement checkbox : checkboxes) {
-			GroupData group = new GroupData();
+			//GroupData group = new GroupData().withName(name);
 			String title = checkbox.getAttribute("title");
-			group.name = title.substring("Select (".length(), title.length() - ")".length());
-			groups.add(group);
+			String name = title.substring("Select (".length(), title.length() - ")".length());
+			groups.add(new GroupData().withName(name));
 		}
 		return groups;
 	}

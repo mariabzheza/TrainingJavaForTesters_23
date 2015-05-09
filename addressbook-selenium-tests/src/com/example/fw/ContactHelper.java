@@ -17,29 +17,30 @@ public class ContactHelper extends HelperBase {
 		super(manager);
 	}
 
-	public void initContactCreationForm() {
+	public ContactHelper initContactCreationForm() {
 		click(By.linkText("add new"));
+		return this;
 	}
 
-	public void fillContactForm(ContactData contact, boolean formType) {
+	public ContactHelper fillContactForm(ContactData contact, boolean formType) {
 		
-		type(By.name("firstname"), contact.first_name);
-		type(By.name("lastname"), contact.last_name);
-		type(By.name("address"), contact.address);
-		type(By.name("home"), contact.home_phone);
-		type(By.name("mobile"), contact.mobile_phone);
-		type(By.name("work"), contact.work_phone);
-		type(By.name("email"), contact.first_email);
-		type(By.name("email2"), contact.second_email);
-	    selectByText(By.name("bday"), contact.bday);
-	    selectByText(By.name("bmonth"), contact.bmonth);
-	    type(By.name("byear"), contact.byear);
+		type(By.name("firstname"), contact.getFirst_name());
+		type(By.name("lastname"), contact.getLast_name());
+		type(By.name("address"), contact.getAddress());
+		type(By.name("home"), contact.getHome_phone());
+		type(By.name("mobile"), contact.getMobile_phone());
+		type(By.name("work"), contact.getWork_phone());
+		type(By.name("email"), contact.getFirst_email());
+		type(By.name("email2"), contact.getSecond_email());
+	    selectByText(By.name("bday"), contact.getBday());
+	    selectByText(By.name("bmonth"), contact.getBmonth());
+	    type(By.name("byear"), contact.getByear());
 	    
 	    // Принадлежность контакта к group есть при операции create, но почему-то нету при edit, см. коммент "Проверка" ниже.
 	    //new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contact.new_group);
 	    
 	    if (formType == CREATION) {
-	    //selectByText(By.name("new_group"), contact.new_group);
+	    	selectByText(By.name("new_group"), contact.getNew_group());
 	    } else {
 	    	// Проверка: если это не форма для создания группы, и если на странице присутствует елемент для выбора форм, то это ошибка!!!
 	    	// Но из-за этой проверки тесты тормозят сильно!!!
@@ -48,30 +49,36 @@ public class ContactHelper extends HelperBase {
 	    	}
 	    }
 	    
-	    type(By.name("address2"), contact.second_address);
-	    type(By.name("phone2"), contact.second_phone);
+	    type(By.name("address2"), contact.getSecond_address());
+	    type(By.name("phone2"), contact.getSecond_phone());
+	    
+	    return this;
 	}
 	
-	public void submitContactCreationForm() {
+	public ContactHelper submitContactCreationForm() {
 		click(By.name("submit"));
+		return this;
 	}
 
-	public void returnToHomePage() {
+	public ContactHelper returnToHomePage() {
 		click(By.linkText("home page"));
+		return this;
 	}
 
-	public void initContactEditDelete(int index) {
+	public ContactHelper initContactEditDelete(int index) {
 		click(By.xpath("(//img[@alt='Edit'])[" + (index+1) + "]"));
-		
+		return this;
 	}
 
-	public void deleteContact() {
+	public ContactHelper deleteContact() {
 		click(By.xpath("//input[@value='Delete']"));
+		return this;
 	}
 
-	public void submitModifiedContact() {
+	public ContactHelper submitModifiedContact() {
 		click(By.xpath("//input[@value='Update']"));
 		//click(By.xpath("//input[@value='Update'AND@name='update']"));
+		return this;
 	}
 
 	public List<ContactData> getContacts() {
@@ -94,9 +101,8 @@ public class ContactHelper extends HelperBase {
 		
 		List<WebElement> firstnameLists = driver.findElements(By.xpath("//tr[@name='entry'][*]/td[3]"));
 		for(WebElement firstname: firstnameLists) {
-			ContactData contact = new ContactData();
-			contact.first_name = firstname.getText();
-			contacts.add(contact);
+			String first_name = firstname.getText();
+			contacts.add(new ContactData().withFirstName(first_name));
 		}
 				
 		return contacts;
