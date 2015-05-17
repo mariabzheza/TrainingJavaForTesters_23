@@ -1,12 +1,11 @@
 package com.example.tests;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.testng.annotations.Test;
 
-//в следующей строке из класса Assert импортируется отдельний метод assertEquals
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.*;
+
+import com.example.utils.SortedListOf;
 
 public class GroupCreationTests extends TestBase {
   
@@ -17,23 +16,16 @@ public class GroupCreationTests extends TestBase {
     //app.navigateTo().groupsPage();
     
     // save old state
-    List<GroupData> oldList = app.getGroupHelper().getGroups();
+	SortedListOf<GroupData> oldList = app.getGroupHelper().getGroups();
     
     // actions
-    app.getGroupHelper()
-    	.initGroupCreation()
-    	.fillGroupForm(group)
-    	.submitGroupCreationForm()
-    	.returnToGroupsPage();
+    app.getGroupHelper().createGroup(group);
     
     // save new state
-    List<GroupData> newList = app.getGroupHelper().getGroups();
+    SortedListOf<GroupData> newList = app.getGroupHelper().getGroups();
     
     // compare old and new state
-    oldList.add(group);
-    Collections.sort(oldList);
-    assertEquals(newList, oldList);
-    
+    assertThat(newList, equalTo(oldList.withAdded(group)));
   }
 
 }

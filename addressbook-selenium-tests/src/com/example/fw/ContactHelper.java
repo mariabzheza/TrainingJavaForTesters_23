@@ -1,12 +1,15 @@
 package com.example.fw;
 
-import java.util.ArrayList;
+//import static com.example.fw.ContactHelper.CREATION;
+//import static com.example.fw.ContactHelper.MODIFICATION;
+
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.example.tests.ContactData;
+import com.example.utils.SortedListOf;
 
 public class ContactHelper extends HelperBase {
 	
@@ -16,6 +19,59 @@ public class ContactHelper extends HelperBase {
 	public ContactHelper(ApplicationManager manager) {
 		super(manager);
 	}
+	
+	private SortedListOf<ContactData> cashedContacts;
+	
+	public SortedListOf<ContactData> getContacts() {
+		if (cashedContacts == null) {
+			rebuildCash();
+		}
+		return cashedContacts;
+	}
+	
+	private void rebuildCash() {
+		cashedContacts = new SortedListOf<ContactData>();
+		List<WebElement> rows = getContactRows();
+		for (WebElement row : rows) {
+		    ContactData contact = new ContactData()
+		    	.withFirstName(row.findElement(By.xpath(".//td[3]")).getText())
+		    	.withLastName(row.findElement(By.xpath(".//td[2]")).getText())
+		    	/*.withFirstEmail(row.findElement(By.xpath(".//td[4]")).getText())
+		    	.withHomePhone(row.findElement(By.xpath(".//td[5]")).getText())*/;
+		    cashedContacts.add(contact);
+		}
+	}
+
+	public ContactHelper createContact(ContactData contact, boolean formType) {
+		manager.navigateTo().mainPage();
+    	initContactCreationForm();
+    	fillContactForm(contact, CREATION);
+    	submitContactCreationForm();
+    	returnToHomePage();
+    	rebuildCash();
+    	return this;
+	}
+	
+	public ContactHelper modifyContact(int indexOfContact, ContactData contact, boolean formType) {
+		manager.navigateTo().mainPage();
+    	initContactEditionDeletion(indexOfContact);
+    	fillContactForm(contact, MODIFICATION);
+    	submitModifiedContact();
+    	returnToHomePage();
+    	rebuildCash();
+		return this;
+	}
+	
+	public ContactHelper deleteContact(int index) {
+		manager.navigateTo().mainPage();
+    	initContactEditionDeletion(index);
+    	clickDeleteContactButton();
+    	returnToHomePage();
+    	rebuildCash();
+		return this;
+	}
+	
+// ----------------------------------------------------------------------------------------------------------
 
 	public ContactHelper initContactCreationForm() {
 		click(By.linkText("add new"));
@@ -57,6 +113,7 @@ public class ContactHelper extends HelperBase {
 	
 	public ContactHelper submitContactCreationForm() {
 		click(By.name("submit"));
+		cashedContacts = null;
 		return this;
 	}
 
@@ -65,47 +122,27 @@ public class ContactHelper extends HelperBase {
 		return this;
 	}
 
-	public ContactHelper initContactEditDelete(int index) {
+	public ContactHelper initContactEditionDeletion(int index) {
+		//click(By.xpath("(//img[@alt='Edit'])[" + (index+1) + "]"));
 		click(By.xpath("(//img[@alt='Edit'])[" + (index+1) + "]"));
 		return this;
 	}
 
-	public ContactHelper deleteContact() {
+	public ContactHelper clickDeleteContactButton() {
 		click(By.xpath("//input[@value='Delete']"));
+		cashedContacts = null;
 		return this;
 	}
 
 	public ContactHelper submitModifiedContact() {
 		click(By.xpath("//input[@value='Update']"));
 		//click(By.xpath("//input[@value='Update'AND@name='update']"));
+		cashedContacts = null;
 		return this;
 	}
-
-	public List<ContactData> getContacts() {
-		List<ContactData> contacts = new ArrayList<ContactData>();
-		
-/*
-		List<WebElement> contactElements = driver.findElements(By.name("selected[]"));
-		for (WebElement contactElement: contactElements){
-			ContactData contact = new ContactData();
-			String title = contactElement.getAttribute("title");
-			contact.firstAndLastName = title.substring("Select (".length(), title.length() - ")".length());
-			contacts.add(contact);
-		}		
-*/	
-		
-/*
- * 		String path = "//tr[td[text()='" + firstname + "'] and td[text()='250first name 1']]";
- *      //tr[td[text()='250last name 1'] and td[text()='250first name 1']]
-*/
-		
-		List<WebElement> firstnameLists = driver.findElements(By.xpath("//tr[@name='entry'][*]/td[3]"));
-		for(WebElement firstname: firstnameLists) {
-			String first_name = firstname.getText();
-			contacts.add(new ContactData().withFirstName(first_name));
-		}
-				
-		return contacts;
+	
+	private List<WebElement> getContactRows() {
+		return driver.findElements(By.xpath("//tr[@name='entry']"));
 	}
 	
 }

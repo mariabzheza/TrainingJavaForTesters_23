@@ -43,15 +43,38 @@ public class ContactData implements Comparable<ContactData>{
 	
 	@Override
 	public String toString() {
-		return "ContactData [first_name=" + first_name + "]";
+		return "ContactData [first_name=" + first_name + ", last_name="
+				+ last_name + "]";
 	}
-	
+
+	@Override
+	// возможно тут надо будет ещё исправить, если в адресной книге сортировка сделана по-другому.
+	public int compareTo(ContactData other) {
+		int result = this.last_name.toLowerCase().compareTo(other.last_name.toLowerCase());
+		if (result == 0) {
+			result = this.first_name.toLowerCase().compareTo(other.first_name.toLowerCase());
+			/*if (result == 0) {
+				result = this.home_phone.toLowerCase().compareTo(other.home_phone.toLowerCase());
+				if (result == 0) {
+					result = this.first_email.toLowerCase().compareTo(other.first_email.toLowerCase());
+				}
+			}*/
+		}
+		
+		return result;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		//пока убираем сравнение по хеш-коду, в данном случае будет выполняться только метод equals 
-		//result = prime * result + ((first_name == null) ? 0 : first_name.hashCode());
+		/*
+		result = prime * result
+				+ ((first_name == null) ? 0 : first_name.hashCode());
+		result = prime * result
+				+ ((last_name == null) ? 0 : last_name.hashCode());
+		*/
 		return result;
 	}
 
@@ -69,14 +92,15 @@ public class ContactData implements Comparable<ContactData>{
 				return false;
 		} else if (!first_name.equals(other.first_name))
 			return false;
+		if (last_name == null) {
+			if (other.last_name != null)
+				return false;
+		} else if (!last_name.equals(other.last_name))
+			return false;
 		return true;
 	}
-
-	@Override
-	public int compareTo(ContactData other) {
-		return this.first_name.toLowerCase().compareTo(other.first_name.toLowerCase());
-	}
-
+	
+	// Some Setters bellow
 	public ContactData withFirstName(String firstName) {
 		first_name = firstName;
 		return this;
@@ -147,6 +171,7 @@ public class ContactData implements Comparable<ContactData>{
 		return this;
 	}
 
+	// Some Getters bellow
 	public String getFirst_name() {
 		return first_name;
 	}
