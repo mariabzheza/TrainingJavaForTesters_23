@@ -1,11 +1,15 @@
 package com.example.tests;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import com.thoughtworks.xstream.XStream;
 
 public class ContactDataGenerator {
 
@@ -33,28 +37,61 @@ public class ContactDataGenerator {
 			System.out.println("Unknown format " + format);
 			return;
 		}
-
 	}
 
-	private static void saveContactsToXmlFile(List<ContactData> contacts,
-			File file) throws IOException {
-		// тут ещЄ надо доделать!!!!!
-		
-		/*FileWriter writer = new FileWriter(file);
-		for (ContactData contact : contacts) {
-			writer.write(contact.getFirst_name() + "," + contact.getLast_name() + "," + contact.getAddress() + "," + contact.getHome_phone() + "," + contact.getMobile_phone() + "," + contact.getWork_phone() + "," + contact.getFirst_email() + "," + contact.getSecond_email() + "," + contact.getBday() + "," + contact.getBmonth() + "," + contact.getByear() + "," + contact.getNew_group() + "," + contact.getSecond_address() + "," + contact.getSecond_phone() + "\n");
-		}
+	private static void saveContactsToXmlFile(List<ContactData> contacts, File file) throws IOException {
+		XStream xstream = new XStream();
+		//добавл€ем следующую строку, если хотим, чтобы в contacts.xml тег <com.example.tests.ContactData> вигл€дел так: <contact>
+		xstream.alias("contact", ContactData.class);
+		String xml = xstream.toXML(contacts);
+		FileWriter writer = new FileWriter(file);
+		writer.write(xml);
 		writer.close();
-		*/
+	}
+	
+	public static List<ContactData> loadContactsFromXmlFile(File file) throws IOException {
+		XStream xstream = new XStream();
+		//добавл€ем следующую строку, если хотим, чтобы в contacts.xml тег <com.example.tests.ContactData> вигл€дел так: <contact>
+		xstream.alias("contact", ContactData.class);
+		
+		return (List<ContactData>) xstream.fromXML(file);
 	}
 
-	private static void saveContactsToCsvFile(List<ContactData> contacts,
-			File file) throws IOException {
+	private static void saveContactsToCsvFile(List<ContactData> contacts, File file) throws IOException {
 		FileWriter writer = new FileWriter(file);
 		for (ContactData contact : contacts) {
-			writer.write(contact.getFirst_name() + "," + contact.getLast_name() + "," + contact.getAddress() + "," + contact.getHome_phone() + "," + contact.getMobile_phone() + "," + contact.getWork_phone() + "," + contact.getFirst_email() + "," + contact.getSecond_email() + "," + contact.getBday() + "," + contact.getBmonth() + "," + contact.getByear() + "," + contact.getNew_group() + "," + contact.getSecond_address() + "," + contact.getSecond_phone() + "\n");
+			writer.write(contact.getFirst_name() + "," + contact.getLast_name() + "," + contact.getAddress() + "," + contact.getHome_phone() + "," + contact.getMobile_phone() + "," + contact.getWork_phone() + "," + contact.getFirst_email() + "," + contact.getSecond_email() + "," + contact.getBday() + "," + contact.getBmonth() + "," + contact.getByear() + "," + contact.getNew_group() + "," + contact.getSecond_address() + "," + contact.getSecond_phone() + ",!" + "\n");
 		}
 		writer.close();
+	}
+	
+	public static List<ContactData> loadContactsFromCsvFile(File file) throws IOException {
+		List<ContactData> list = new ArrayList<ContactData>();
+		FileReader reader = new FileReader(file);
+		BufferedReader bufferedReader = new BufferedReader(reader);
+		String line = bufferedReader.readLine();
+		while (line != null) {
+			String[] part = line.split(",");
+			ContactData contact = new ContactData()
+				.withFirstName(part[0])
+				.withLastName(part[1])
+				.withAddress(part[2])
+				.withHomePhone(part[3])
+			  	.withMobilePhone(part[4])
+			  	.withWorkPhone(part[5])
+			  	.withFirstEmail(part[6])
+			  	.withSecondEmail(part[7])
+			  	.withBDay(part[8])
+			  	.withBMonth(part[9])
+			  	.withBYear(part[10])
+			  	.withNewGroup(part[11])
+			  	.withSecondAddress(part[12])
+			  	.withSecondPhone(part[13]);
+			list.add(contact);
+			line = bufferedReader.readLine();
+		}
+		bufferedReader.close();
+		return list;
 	}
 
 	public static List<ContactData> generateRandomContacts(int amount) {

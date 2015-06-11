@@ -1,17 +1,15 @@
 package com.example.tests;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
 
 import com.example.fw.ApplicationManager;
 
-import static com.example.tests.GroupDataGenerator.generateRandomGroups;
-import static com.example.tests.ContactDataGenerator.generateRandomContacts;
+//import static com.example.tests.GroupDataGenerator.generateRandomGroups;
+//import static com.example.tests.ContactDataGenerator.generateRandomContacts;
 
 public class TestBase {
 	
@@ -27,12 +25,12 @@ public class TestBase {
 		app.stop();
 	}
 
-	@DataProvider
+/*	@DataProvider
 	  public Iterator<Object[]> randomValidGroupGenerator() {
 		  return wrapGroupsForDataProvider(generateRandomGroups(5)).iterator();
 	  }
-	  
-	private List<Object[]> wrapGroupsForDataProvider(List<GroupData> groups) {
+*/	  
+	public static List<Object[]> wrapGroupsForDataProvider(List<GroupData> groups) {
 		List<Object[]> list = new ArrayList<Object[]>();
 		for (GroupData group : groups) {
 			list.add(new Object[]{group});
@@ -40,12 +38,13 @@ public class TestBase {
 		return list;
 	}
 
-	@DataProvider
+/*	@DataProvider
 	  public Iterator<Object[]> randomValidContactGenerator() {
 		  return wrapContactsForDataProvider(generateRandomContacts(5)).iterator();
 	  }
-	  
-	  private List<Object[]> wrapContactsForDataProvider(
+*/
+	
+	  public static List<Object[]> wrapContactsForDataProvider(
 			List<ContactData> contacts) {
 		  List<Object[]> list = new ArrayList<Object[]>();
 		  for (ContactData contact : contacts) {
