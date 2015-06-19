@@ -1,6 +1,7 @@
 package com.example.tests;
 
 public class GroupData implements Comparable<GroupData> {
+	private String id;
 	private String name;
 	private String header;
 	private String footer;
@@ -52,6 +53,11 @@ public class GroupData implements Comparable<GroupData> {
 	}
 
 	// Three Setters bellow
+	public GroupData withId(String id) {
+		this.id = id;
+		return this;
+	}
+	
 	public GroupData withName(String name) {
 		this.name = name;
 		return this;
