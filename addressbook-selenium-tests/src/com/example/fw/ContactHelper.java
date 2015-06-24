@@ -20,27 +20,29 @@ public class ContactHelper extends WebDriverHelperBase {
 		super(manager);
 	}
 	
-	private SortedListOf<ContactData> cashedContacts;
+	//private SortedListOf<ContactData> cashedContacts;
 	
-	public SortedListOf<ContactData> getContacts() {
+	/*public SortedListOf<ContactData> getContacts() {
 		if (cashedContacts == null) {
 			rebuildCash();
 		}
 		return cashedContacts;
 	}
+	*/
 	
+	/*	
 	private void rebuildCash() {
 		cashedContacts = new SortedListOf<ContactData>();
 		List<WebElement> rows = getContactRows();
 		for (WebElement row : rows) {
 		    ContactData contact = new ContactData()
 		    	.withFirstName(row.findElement(By.xpath(".//td[3]")).getText())
-		    	.withLastName(row.findElement(By.xpath(".//td[2]")).getText())
+		    	.withLastName(row.findElement(By.xpath(".//td[2]")).getText()) */
 		    	/*.withFirstEmail(row.findElement(By.xpath(".//td[4]")).getText())
-		    	.withHomePhone(row.findElement(By.xpath(".//td[5]")).getText())*/;
+		    	.withHomePhone(row.findElement(By.xpath(".//td[5]")).getText())*/ /*;
 		    cashedContacts.add(contact);
 		}
-	}
+	} */
 
 	public ContactHelper createContact(ContactData contact, boolean formType) {
 		manager.navigateTo().mainPage();
@@ -48,7 +50,8 @@ public class ContactHelper extends WebDriverHelperBase {
     	fillContactForm(contact, CREATION);
     	submitContactCreationForm();
     	returnToHomePage();
-    	rebuildCash();
+    	//rebuildCash();
+    	manager.getModel().addContact(contact);
     	return this;
 	}
 	
@@ -58,7 +61,8 @@ public class ContactHelper extends WebDriverHelperBase {
     	fillContactForm(contact, MODIFICATION);
     	submitModifiedContact();
     	returnToHomePage();
-    	rebuildCash();
+    	//rebuildCash();
+    	manager.getModel().removeContact(indexOfContact).addContact(contact);
 		return this;
 	}
 	
@@ -67,12 +71,32 @@ public class ContactHelper extends WebDriverHelperBase {
     	initContactEditionDeletion(index);
     	clickDeleteContactButton();
     	returnToHomePage();
-    	rebuildCash();
+    	//rebuildCash();
+    	manager.getModel().removeContact(index);
 		return this;
 	}
 	
 // ----------------------------------------------------------------------------------------------------------
 
+	
+	public SortedListOf<ContactData> getUiContacts() {
+		
+		SortedListOf<ContactData> contacts = new SortedListOf<ContactData>();
+		//manager.navigateTo().mainPage();
+		
+		List<WebElement> rows = getContactRows();
+		for (WebElement row : rows) {
+		    ContactData contact = new ContactData()
+		    	.withFirstName(row.findElement(By.xpath(".//td[3]")).getText())
+		    	.withLastName(row.findElement(By.xpath(".//td[2]")).getText())
+		    	/*.withFirstEmail(row.findElement(By.xpath(".//td[4]")).getText())
+		    	.withHomePhone(row.findElement(By.xpath(".//td[5]")).getText())*/;
+		    contacts.add(contact);
+		}
+		
+		return contacts;
+	}
+	
 	public ContactHelper initContactCreationForm() {
 		click(By.linkText("add new"));
 		return this;
@@ -113,7 +137,7 @@ public class ContactHelper extends WebDriverHelperBase {
 	
 	public ContactHelper submitContactCreationForm() {
 		click(By.name("submit"));
-		cashedContacts = null;
+		//cashedContacts = null;
 		return this;
 	}
 
@@ -130,14 +154,14 @@ public class ContactHelper extends WebDriverHelperBase {
 
 	public ContactHelper clickDeleteContactButton() {
 		click(By.xpath("//input[@value='Delete']"));
-		cashedContacts = null;
+		//cashedContacts = null;
 		return this;
 	}
 
 	public ContactHelper submitModifiedContact() {
 		click(By.xpath("//input[@value='Update']"));
 		//click(By.xpath("//input[@value='Update'AND@name='update']"));
-		cashedContacts = null;
+		//cashedContacts = null;
 		return this;
 	}
 	

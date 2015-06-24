@@ -52,7 +52,7 @@ public class GroupData implements Comparable<GroupData> {
 		return this.name.toLowerCase().compareTo(other.name.toLowerCase());
 	}
 
-	// Three Setters bellow
+	// Setters bellow
 	public GroupData withId(String id) {
 		this.id = id;
 		return this;
@@ -77,12 +77,32 @@ public class GroupData implements Comparable<GroupData> {
 		return name;
 	}
 
+	public String getId() {
+		return id;
+	}
+
 	public String getHeader() {
 		return header;
 	}
 
 	public String getFooter() {
 		return footer;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setHeader(String header) {
+		this.header = header;
+	}
+
+	public void setFooter(String footer) {
+		this.footer = footer;
 	}
 	
 }

@@ -16,7 +16,7 @@ public abstract class WebDriverHelperBase extends HelperBase {
 
 	public WebDriverHelperBase(ApplicationManager manager) {
 		super(manager);
-		this.driver = manager.driver;
+		this.driver = manager.getDriver();
 		//wait = new WebDriverWait(driver, 10);
 	}
 	

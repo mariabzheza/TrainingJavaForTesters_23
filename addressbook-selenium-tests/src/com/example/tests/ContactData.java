@@ -15,6 +15,8 @@ public class ContactData implements Comparable<ContactData>{
 	private String new_group;
 	private String second_address;
 	private String second_phone;
+	private String contact_id;
+	
 //	public String firstAndLastName ="";
 
 	public ContactData() {
@@ -170,6 +172,11 @@ public class ContactData implements Comparable<ContactData>{
 		second_phone = secondPhone;
 		return this;
 	}
+	
+	public ContactData withId(String contact_Id) {
+		contact_id = contact_Id;
+		return this;
+	}
 
 	// Some Getters bellow
 	public String getFirst_name() {
@@ -226,6 +233,70 @@ public class ContactData implements Comparable<ContactData>{
 
 	public String getSecond_phone() {
 		return second_phone;
+	}
+	
+	public String getContact_id() {
+		return contact_id;
+	}
+
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setHome_phone(String home_phone) {
+		this.home_phone = home_phone;
+	}
+
+	public void setMobile_phone(String mobile_phone) {
+		this.mobile_phone = mobile_phone;
+	}
+
+	public void setWork_phone(String work_phone) {
+		this.work_phone = work_phone;
+	}
+
+	public void setFirst_email(String first_email) {
+		this.first_email = first_email;
+	}
+
+	public void setSecond_email(String second_email) {
+		this.second_email = second_email;
+	}
+
+	public void setBday(String bday) {
+		this.bday = bday;
+	}
+
+	public void setBmonth(String bmonth) {
+		this.bmonth = bmonth;
+	}
+
+	public void setByear(String byear) {
+		this.byear = byear;
+	}
+
+	public void setNew_group(String new_group) {
+		this.new_group = new_group;
+	}
+
+	public void setSecond_address(String second_address) {
+		this.second_address = second_address;
+	}
+
+	public void setSecond_phone(String second_phone) {
+		this.second_phone = second_phone;
+	}
+
+	public void setContact_id(String contact_id) {
+		this.contact_id = contact_id;
 	}
 	
 }
